@@ -6,11 +6,27 @@ import csv
 
 items_hire = open("items.csv","r") #opens the .csv file
 items_hire_reader = csv.DictReader(items_hire,fieldnames=['itemName','desc','price','hire']) #used to read the lines in csv and separate them by their commas
+#items_hire_writer=csv.writer(items_hire)
 
 num_lines = sum(1 for line in open('items.csv')) #counts the number of items present in items.csv
-print("\n{} items loaded from items.csv".format(num_lines)) #shows the number of items present in items.csv
-print("\n")
-print("Menu:")
+
+def list_items(): #A function to load items from items.csv
+    """
+    Pseudo code coming soon.
+    """
+    item_count = 0
+    for i in items_hire_reader:
+        if i['hire'] == 'out':
+            out = "*"
+            print(item_count, ' - ', i['itemName'], '(', i['desc'], ')', '= $', i['price'], out)
+        else:
+            print(item_count, ' - ', i['itemName'], '(', i['desc'], ')', '= $', i['price'])
+        item_count += 1
+
+
+print("{} items loaded from items.csv".format(num_lines)) #shows the number of items present in items.csv
+
+print("\nMenu:")
 print("(L)ist all items")
 print("(H)ire an item")
 print("(R)eturn an item")
@@ -21,11 +37,11 @@ choice = input(">>>")
 
 while True:
     if choice == 'Q' or choice == 'q':
-        print("Finished")
+        print("\n{} items saved to items.csv".format(num_lines))
         break
     elif choice == 'L' or choice == 'l':
-        for i in items_hire_reader:
-            print(i['itemName'],'(',i['desc'],')','= $',i['price'],i['hire'])
+        print("All items on file (* indicates item is currently out):")
+        list_items() #Calls the items load function
         print("\n")
         print("Menu:")
         print("(L)ist all items")
