@@ -19,6 +19,8 @@ def list_items(): #A function to load items from items.csv
 
     item_count = 0
     items_hire = open items.csv
+    read items.csv
+    print serial number, name, description, price, hire from items.csv
     """
     item_count = 0
     with open('items.csv') as file:
