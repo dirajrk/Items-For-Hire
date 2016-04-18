@@ -9,7 +9,7 @@ print("Items for Hire - by Diraj Ravikumar\n")
 num_lines = sum(1 for line in open('items.csv')) #counts the number of items present in items.csv
 print("{} items loaded from items.csv".format(num_lines)) #shows the number of items present in items.csv
 
-menu = ("\nMenu: \n(L)ist all items \n(H)ire an item \n(A)dd new item to stock \n(Q)uit")
+menu = ("\nMenu: \n(L)ist all items \n(H)ire an item \n(R)eturn an item \n(A)dd new item to stock \n(Q)uit")
 print(menu)
 choice = input(">>>")
 
@@ -51,15 +51,14 @@ while True:
         choice = input(">>>")
 
     elif choice == 'H' or choice == 'h': #hire an item
-        hire_items()
-
         print(menu)
+        choice = input(">>>")
     elif choice == 'R' or choice == 'r': #return an item back
-        print("R")
-
         print(menu)
+        choice = input(">>>")
     elif choice == 'A' or choice == 'a': #add a new item to stock
         print(menu)
+        choice = input(">>>")
     else: #if the user chooses an option that is not available from the menu
         print("Invalid Option!")
 
