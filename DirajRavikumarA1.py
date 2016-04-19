@@ -30,7 +30,7 @@ def list_items():
         item_lines_list = file.readlines()
     for line in item_lines_list:
         name, desc, price, hire = line.split(',')
-        if hire == "out":
+        if "out" in hire:
             print ("{} - {} ({}) = ${:.2f} *".format(item_count, name, desc, float(price)))
         else:
             print ("{} - {} ({}) = ${:.2f}".format(item_count, name, desc, float(price)))
