@@ -35,8 +35,8 @@ def list_items():
         else:
             print ("{} - {} ({}) = ${:.2f}".format(item_count, name, desc, float(price)))
         item_count += 1
+    file.close()
 
-# print ("{} - {} ({}) = ${}".format(item_count, name, desc, price))
 def hire_items():
     """
     A function to hire items from items.csv
@@ -45,13 +45,17 @@ def hire_items():
 
     Display items available
     """
+    item_count = 0
     with open('items.csv') as file:
         item_lines_list = file.readlines()
     for line in item_lines_list:
         name, desc, price, hire = line.split(',')
-        print(name," (", desc, ") ", " = $", price, "*",end="")
+        if hire == 'in':
+            print ("{} - {} ({}) = ${:.2f}".format(item_count, name, desc, float(price)))
+            file.write(item_count, ",", name," ,", desc, ",", " = $", float(price), "out")
 
 while True:
+
     if choice == 'Q' or choice == 'q': #if user chooses to quit the program, it shows the number of items saved and breaks the program
         print("\n{} items saved to items.csv".format(num_lines))
         break
@@ -61,10 +65,11 @@ while True:
         print("All items on file (* indicates item is currently out):\n")
         list_items() #Calls the items load function
 
-        print("\n",menu) #prints out the menu
+        print("\n", menu) #prints out the menu
         choice = input(">>>")
 
     elif choice == 'H' or choice == 'h': #hire an item
+        hire_items()
         print(menu)
         choice = input(">>>")
 
@@ -89,8 +94,8 @@ while True:
         try:
             price = float(input("Price per day: $"))
             while price < 0:
-                    print("Price must be >= $0 \nInvalid input; enter a valid number")
-                    price = float(input("Item price: $"))
+                print("Price must be >= $0 \nInvalid input; enter a valid number")
+                price = float(input("Item price: $"))
         except ValueError:
             print("Invalid input; enter a valid number")
             price = float(input("Item price: $"))
