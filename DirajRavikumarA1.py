@@ -31,9 +31,9 @@ def list_items():
     for line in item_lines_list:
         name, desc, price, hire = line.split(',')
         if "out" in hire:
-            print ("{} - {} ({}) = ${:.2f} *".format(item_count, name, desc, float(price)))
+            print("{} - {} ({}) = ${:.2f} *".format(item_count, name, desc, float(price)))
         else:
-            print ("{} - {} ({}) = ${:.2f}".format(item_count, name, desc, float(price)))
+            print("{} - {} ({}) = ${:.2f}".format(item_count, name, desc, float(price)))
         item_count += 1
     file.close()
 
@@ -51,7 +51,7 @@ def hire_items():
     for index,line in enumerate(item_lines_list):
         name, desc, price, hire = line.split(',')
         if 'in' in hire:
-            print(item_count, " - ", name," (", desc, ") ", " = $", float(price))
+            print("{:<3d} - {:<40s} ({}) = ${:>7,.2f}".format(item_count, name, desc, float(price)))
         item_count += 1
     replace = int(input(" Which one to hire?\n"))
     item_lines_list[replace] = item_lines_list[replace].replace('in', 'out')
@@ -85,7 +85,7 @@ while True:
         for index,line in enumerate(item_lines_list):
             name, desc, price, hire = line.split(',')
             if 'out' in hire:
-                print(item_count, " - ", name," (", desc, ") ", " = $", float(price), "*")
+                print("{} - {} ({}) = ${:.2f} *".format(item_count, name, desc, float(price)))
             item_count += 1
         replace = int(input(" Which one to in?\n"))
         item_lines_list[replace] = item_lines_list[replace].replace('out', 'in')
