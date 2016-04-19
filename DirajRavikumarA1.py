@@ -13,8 +13,10 @@ menu = ("\nMenu: \n(L)ist all items \n(H)ire an item \n(R)eturn an item \n(A)dd 
 print(menu)
 choice = input(">>>")
 
-def list_items(): #A function to load items from items.csv
+def list_items():
     """
+    A function to load items from items.csv
+
     Function list_items()
 
     item_count = 0
@@ -22,6 +24,7 @@ def list_items(): #A function to load items from items.csv
     read items.csv
     print serial number, name, description, price, hire from items.csv
     """
+
     item_count = 0
     with open('items.csv') as file:
         item_lines_list = file.readlines()
@@ -59,9 +62,35 @@ while True:
         print(menu)
         choice = input(">>>")
     elif choice == 'A' or choice == 'a': #add a new item to stock
+        #NAME
+        name = input("Item name: ")
+        while len(name) < 0:
+            print("Input cannot be blank")
+            name = input("Item name: ")
+
+        #DESCRIPTION
+        desc = input("Description: ")
+
+        #PRICE
+        try:
+            price = float(input("Price per day: $"))
+            while price < 0:
+                    print("Price must be >= $0 \nInvalid input; enter a valid number")
+                    price = float(input("Item price: $"))
+        except ValueError:
+            print("Invalid input; enter a valid number")
+            price = float(input("Item price: $"))
+
+        new_item = open("items.csv", "a")
+        print("{},{},{},{}".format(name, desc, price, "in"), file=new_item)
+        print("{} ({}), ${} now available for hire".format(name, desc, price))
+        new_item.close()
+        num_lines += 1
+
         print(menu)
         choice = input(">>>")
-    else: #if the user chooses an option that is not available from the menu
+    else:
+        #if the user chooses an option that is not available from the menu
         print("Invalid Option!")
 
         print(menu)
