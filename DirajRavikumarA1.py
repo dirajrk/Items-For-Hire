@@ -30,23 +30,32 @@ def list_items():
         item_lines_list = file.readlines()
     for line in item_lines_list:
         name, desc, price, hire = line.split(',')
-        print(item_count, " - ", name," (", desc, ") ", " = $", price, hire, end="")
+        if hire == "out":
+            print ("{} - {} ({}) = ${:.2f} *".format(item_count, name, desc, float(price)))
+        else:
+            print ("{} - {} ({}) = ${:.2f}".format(item_count, name, desc, float(price)))
         item_count += 1
 
-def hire_items(): #A function to hire items from items.csv
+# print ("{} - {} ({}) = ${}".format(item_count, name, desc, price))
+def hire_items():
     """
+    A function to hire items from items.csv
 
+    Function hire_items()
+
+    Display items available
     """
     with open('items.csv') as file:
         item_lines_list = file.readlines()
     for line in item_lines_list:
         name, desc, price, hire = line.split(',')
-        print(name," (", desc, ") ", " = $", price, end="")
+        print(name," (", desc, ") ", " = $", price, "*",end="")
 
 while True:
     if choice == 'Q' or choice == 'q': #if user chooses to quit the program, it shows the number of items saved and breaks the program
         print("\n{} items saved to items.csv".format(num_lines))
         break
+
     elif choice == 'L' or choice == 'l': #list all the items
 
         print("All items on file (* indicates item is currently out):\n")
@@ -58,9 +67,11 @@ while True:
     elif choice == 'H' or choice == 'h': #hire an item
         print(menu)
         choice = input(">>>")
+
     elif choice == 'R' or choice == 'r': #return an item back
         print(menu)
         choice = input(">>>")
+
     elif choice == 'A' or choice == 'a': #add a new item to stock
         #NAME
         name = input("Item name: ")
@@ -70,6 +81,9 @@ while True:
 
         #DESCRIPTION
         desc = input("Description: ")
+        while len(desc) < 0:
+            print("Input cannot be blank")
+            desc = input(" Description: ")
 
         #PRICE
         try:
@@ -89,6 +103,7 @@ while True:
 
         print(menu)
         choice = input(">>>")
+
     else:
         #if the user chooses an option that is not available from the menu
         print("Invalid Option!")
