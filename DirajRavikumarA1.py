@@ -82,8 +82,8 @@ while True:
             price = float(input("Item price: $"))
 
         new_item = open("items.csv", "a")
-        print("{},{},{},{}".format(name, desc, price, "in"), file=new_item)
-        print("{} ({}), ${} now available for hire".format(name, desc, price))
+        print("{},{},{:.2f},{}".format(name, desc, price, "in"), file=new_item)
+        print("\n{} ({}), ${:.2f} now available for hire.".format(name, desc, price))
         new_item.close()
         num_lines += 1
 
