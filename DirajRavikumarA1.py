@@ -48,11 +48,15 @@ def hire_items():
     item_count = 0
     with open('items.csv') as file:
         item_lines_list = file.readlines()
-    for line in item_lines_list:
+    for index,line in enumerate(item_lines_list):
         name, desc, price, hire = line.split(',')
-        if hire == 'in':
-            print ("{} - {} ({}) = ${:.2f}".format(item_count, name, desc, float(price)))
-            file.write(item_count, ",", name," ,", desc, ",", " = $", float(price), "out")
+        if 'in' in hire:
+            print(item_count, " - ", name," (", desc, ") ", " = $", float(price))
+        item_count += 1
+    replace = int(input(" Which one to hire?\n"))
+    item_lines_list[replace] = item_lines_list[replace].replace('in', 'out')
+    with open('items.csv', 'w') as file:
+        file.writelines(item_lines_list)
 
 while True:
 
@@ -70,10 +74,23 @@ while True:
 
     elif choice == 'H' or choice == 'h': #hire an item
         hire_items()
+
         print(menu)
         choice = input(">>>")
 
     elif choice == 'R' or choice == 'r': #return an item back
+        item_count = 0
+        with open('items.csv') as file:
+            item_lines_list = file.readlines()
+        for index,line in enumerate(item_lines_list):
+            name, desc, price, hire = line.split(',')
+            if 'out' in hire:
+                print(item_count, " - ", name," (", desc, ") ", " = $", float(price), "*")
+            item_count += 1
+        replace = int(input(" Which one to in?\n"))
+        item_lines_list[replace] = item_lines_list[replace].replace('out', 'in')
+        with open('items.csv', 'w') as file:
+            file.writelines(item_lines_list)
         print(menu)
         choice = input(">>>")
 
