@@ -30,11 +30,14 @@ def list_items():
     item_count = 0
     items_hire = open items.csv
     read items.csv
-    print serial number, name, description, price, hire from items.csv
+    store each word separated by commas in different variables (name, desc, price, hire)
+    print "All items on file (* indicates item is currently out):"
+    Display name, desc, price and hire from csv file without commas
     """
 
     item_count = 0
     with open('items.csv') as file:
+        print("All items on file (* indicates item is currently out):\n")
         item_lines_list = file.readlines()
     for line in item_lines_list:
         name, desc, price, hire = line.split(',')
@@ -51,34 +54,48 @@ def hire_items():
 
     Function hire_items()
 
-    Display items available
+    Display name, desc, price and hire from csv file that are available
+    prompt user to choose item to hire
+
+    if no item available to choose
+    print("Currently no item is available to hire")
+
+    if user choose item not available to hire
+    print("wrong number")
+
+    when user choose item to hire
+    print(name hired for price)
+
     """
     item_count = 0
     list_num = []
+    line_list = list()
     with open('items.csv') as file:
-        item_lines_list = file.readlines() #reads the items from csv file to check if any items require to be hired
+        item_lines_list = file.readlines()
     for index,line in enumerate(item_lines_list):
-        name, desc, price, hire = line.split(',')
-        if 'in' in hire: # prints out the items available to hire
+        line_list.append(line)
+        name, desc, price, hire = line_list[index].split(',')
+        if 'in' in hire:
             print("{:<3d} - {:<40s} = ${:>7,.2f}".format(item_count, name + " (" + desc + ") ", float(price)))
             list_num.append(item_count)
         item_count += 1
-        # when there is no item available to hire
+
     if len(list_num) == 0:
         print("Currently no item is available to hire")
     else:
         try:
-            # asks the user the item they want to hire
+
             replace = int(input("Enter the number of an item to hire:\n"))
             if replace in list_num:
                 item_lines_list[replace] = item_lines_list[replace].replace('in', 'out')
                 with open('items.csv', 'w') as file:
-                    file.writelines(item_lines_list) # overwrites the status of an available item that is no longer going to be available
+                    file.writelines(item_lines_list)
+                    name, desc, price, hire = line_list[replace].split(',')
+                    print(name, "is hired for $", float(price))
             else:
-                print("Item is not available.\n") # when the user chooses the wrong item
+                print("That item is not available for hire\n")
         except:
             print("Invalid input")
-    file.close() # every file needs to be closed after their job is done
 
 while True:
 
@@ -90,7 +107,6 @@ while True:
 
     elif choice == 'L' or choice == 'l':
         #if the user chooses to list all the items
-        print("All items on file (* indicates item is currently out):\n")
         #Calls the items load function
         list_items()
 
@@ -107,30 +123,34 @@ while True:
         choice = input(">>>")
 
     elif choice == 'R' or choice == 'r': #return an item back
+
         item_count = 0
         list_num = []
+        line_list = list()
         with open('items.csv') as file:
-            item_lines_list = file.readlines() #reads the items from csv file to check if any items require to be returned
+            item_lines_list = file.readlines()
         for index,line in enumerate(item_lines_list):
-            name, desc, price, hire = line.split(',')
-            if 'out' in hire: # prints out the items available to return
+            line_list.append(line)
+            name, desc, price, hire = line_list[index].split(',')
+            if 'out' in hire:
                 print("{:<3d} - {:<40s} = ${:>7,.2f} *".format(item_count, name + " (" + desc + ") ", float(price)))
                 list_num.append(item_count)
             item_count += 1
-            # when there is no item available to return
+
         if len(list_num) == 0:
-            print("Currently no item is available to return")
+            print("No items are currently on hire")
         else:
             try:
-                #asks the user the item they want to return
-                replace = int(input("Enter the number of an item to return: \n"))
+
+                replace = int(input("Enter the number of an item to return:\n"))
                 if replace in list_num:
                     item_lines_list[replace] = item_lines_list[replace].replace('out', 'in')
                     with open('items.csv', 'w') as file:
-                        file.writelines(item_lines_list)# overwrites the status of an item when it gets returned
-
+                        file.writelines(item_lines_list)
+                        name, desc, price, hire = line_list[replace].split(',')
+                        print(name, "returned.")
                 else:
-                        print("Item is not available.\n")# when the user chooses a wrong item
+                    print("Item is not available.\n")
             except:
                 print("Invalid input")
 
