@@ -48,17 +48,28 @@ def hire_items():
     Display items available
     """
     item_count = 0
+    list_num = []
     with open('items.csv') as file:
         item_lines_list = file.readlines()
     for index,line in enumerate(item_lines_list):
         name, desc, price, hire = line.split(',')
         if 'in' in hire:
             print("{:<3d} - {:<40s} = ${:>7,.2f}".format(item_count, name + " (" + desc + ") ", float(price)))
+            list_num.append(item_count)
         item_count += 1
-    replace = int(input("Enter the number of an item to hire:\n"))
-    item_lines_list[replace] = item_lines_list[replace].replace('in', 'out')
-    with open('items.csv', 'w') as file:
-        file.writelines(item_lines_list)
+    if len(list_num) == 0:
+        print("Currently no item is available to hire")
+    else:
+        try:
+            replace = int(input("Enter the number of an item to hire:\n"))
+            if replace in list_num:
+                item_lines_list[replace] = item_lines_list[replace].replace('in', 'out')
+                with open('items.csv', 'w') as file:
+                    file.writelines(item_lines_list)
+            else:
+                print("Item is not available.\n")
+        except:
+            print("Invalid input")
     file.close()
 
 while True:
@@ -85,17 +96,30 @@ while True:
 
     elif choice == 'R' or choice == 'r': #return an item back
         item_count = 0
+        list_num = []
         with open('items.csv') as file:
             item_lines_list = file.readlines()
         for index,line in enumerate(item_lines_list):
             name, desc, price, hire = line.split(',')
             if 'out' in hire:
                 print("{:<3d} - {:<40s} = ${:>7,.2f} *".format(item_count, name + " (" + desc + ") ", float(price)))
+                list_num.append(item_count)
             item_count += 1
-        replace = int(input("Enter the number of an item to return: \n"))
-        item_lines_list[replace] = item_lines_list[replace].replace('out', 'in')
-        with open('items.csv', 'w') as file:
-            file.writelines(item_lines_list)
+        if len(list_num) == 0:
+            print("Currently no item is available to return")
+        else:
+            try:
+                replace = int(input("Enter the number of an item to return: \n"))
+                if replace in list_num:
+                    item_lines_list[replace] = item_lines_list[replace].replace('out', 'in')
+                    with open('items.csv', 'w') as file:
+                        file.writelines(item_lines_list)
+                else:
+                        print("Item is not available.\n")
+            except:
+                print("Invalid input")
+        file.close()
+
         print(menu)
         choice = input(">>>")
         file.close()
@@ -128,7 +152,7 @@ while True:
         print("\n{} ({}), ${:.2f} now available for hire.".format(name, desc, price))
         new_item.close()
         num_lines += 1
-        file.close()
+
 
         print(menu)
         choice = input(">>>")
