@@ -59,11 +59,14 @@ def hire_items():
     item_lines_list[replace] = item_lines_list[replace].replace('in', 'out')
     with open('items.csv', 'w') as file:
         file.writelines(item_lines_list)
+    file.close()
 
 while True:
 
     if choice == 'Q' or choice == 'q': #if user chooses to quit the program, it shows the number of items saved and breaks the program
+
         print("\n{} items saved to items.csv".format(num_lines))
+        print("Have a nice day :)")
         break
 
     elif choice == 'L' or choice == 'l': #list all the items
@@ -95,6 +98,7 @@ while True:
             file.writelines(item_lines_list)
         print(menu)
         choice = input(">>>")
+        file.close()
 
     elif choice == 'A' or choice == 'a': #add a new item to stock
         #NAME
@@ -124,6 +128,7 @@ while True:
         print("\n{} ({}), ${:.2f} now available for hire.".format(name, desc, price))
         new_item.close()
         num_lines += 1
+        file.close()
 
         print(menu)
         choice = input(">>>")
