@@ -1,7 +1,9 @@
 """
-|=============================|
-|By Diraj Ravikumar (13255244)|
-|=============================|
+Name: Diraj Ravikumar       Student ID: 13255244
+Date: 2x/04/2016
+
+Program details: This program is used to hire or return items and it also allows new items to be added.
+GitHub: https://github.com/dirajravikumar/DirajRavikumarA1
 """
 
 print("Items for Hire - by Diraj Ravikumar\n")
@@ -31,9 +33,9 @@ def list_items():
     for line in item_lines_list:
         name, desc, price, hire = line.split(',')
         if "out" in hire:
-            print("{} - {} ({}) = ${:.2f} *".format(item_count, name, desc, float(price)))
+            print("{:<3d} - {:<40s} = ${:>7,.2f} *".format(item_count, name + " (" + desc + ") ", float(price)))
         else:
-            print("{} - {} ({}) = ${:.2f}".format(item_count, name, desc, float(price)))
+            print("{:<3d} - {:<40s} = ${:>7,.2f}".format(item_count, name + " (" + desc + ") ", float(price)))
         item_count += 1
     file.close()
 
@@ -51,9 +53,9 @@ def hire_items():
     for index,line in enumerate(item_lines_list):
         name, desc, price, hire = line.split(',')
         if 'in' in hire:
-            print("{:<3d} - {:<40s} ({}) = ${:>7,.2f}".format(item_count, name, desc, float(price)))
+            print("{:<3d} - {:<40s} = ${:>7,.2f}".format(item_count, name + " (" + desc + ") ", float(price)))
         item_count += 1
-    replace = int(input(" Which one to hire?\n"))
+    replace = int(input("Enter the number of an item to hire:\n"))
     item_lines_list[replace] = item_lines_list[replace].replace('in', 'out')
     with open('items.csv', 'w') as file:
         file.writelines(item_lines_list)
@@ -85,9 +87,9 @@ while True:
         for index,line in enumerate(item_lines_list):
             name, desc, price, hire = line.split(',')
             if 'out' in hire:
-                print("{} - {} ({}) = ${:.2f} *".format(item_count, name, desc, float(price)))
+                print("{:<3d} - {:<40s} = ${:>7,.2f} *".format(item_count, name + " (" + desc + ") ", float(price)))
             item_count += 1
-        replace = int(input(" Which one to in?\n"))
+        replace = int(input("Enter the number of an item to return: \n"))
         item_lines_list[replace] = item_lines_list[replace].replace('out', 'in')
         with open('items.csv', 'w') as file:
             file.writelines(item_lines_list)
