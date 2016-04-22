@@ -1,6 +1,6 @@
 """
 Name: Diraj Ravikumar       Student ID: 13255244
-Date: 2x/04/2016
+Date: 22/04/2016
 
 Program details: This program is used to hire or return items and it also allows new items to be added.
 GitHub: https://github.com/dirajravikumar/DirajRavikumarA1
@@ -27,12 +27,15 @@ def list_items():
 
     Function list_items()
 
-    item_count = 0
-    items_hire = open items.csv
-    read items.csv
-    store each word separated by commas in different variables (name, desc, price, hire)
-    print "All items on file (* indicates item is currently out):"
-    Display name, desc, price and hire from csv file without commas
+    Read items.csv
+    Display "All items on file (* indicates item is currently out):"
+    Separate values from each other with commas
+    Store each value in the following: name, desc, price, hire
+
+    if item not for hire:
+        print(serial number - name, (description), $xx.xx *)
+    else:
+        print(serial number - name, (description), $xx.xx)
     """
 
     item_count = 0
@@ -54,18 +57,18 @@ def hire_items():
 
     Function hire_items()
 
+    Read items.csv
     Display name, desc, price and hire from csv file that are available
     prompt user to choose item to hire
 
     if no item available to choose
-    print("Currently no item is available to hire")
+        print("Currently no item is available to hire")
 
-    if user choose item not available to hire
-    print("wrong number")
+    else if user choose item not available to hire
+        print("That item is not available for hire")
 
-    when user choose item to hire
-    print(name hired for price)
-
+    else
+        name is hired for $xx.xx
     """
     item_count = 0
     list_num = []
@@ -91,7 +94,7 @@ def hire_items():
                 with open('items.csv', 'w') as file:
                     file.writelines(item_lines_list)
                     name, desc, price, hire = line_list[replace].split(',')
-                    print(name, "is hired for $", float(price))
+                    print("{} is hired for ${:.2f}".format(name, float(price)))
             else:
                 print("That item is not available for hire\n")
         except:
