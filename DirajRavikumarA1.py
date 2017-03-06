@@ -3,7 +3,7 @@ Name: Diraj Ravikumar       Student ID: 13255244
 Date: 22/04/2016
 
 Program details: This program is used to hire or return items and it also allows new items to be added.
-GitHub: https://github.com/dirajrk/DirajRavikumarA1
+GitHub: https://github.com/dirajrk/Items-For-Hire
 """
 
 print("Items for Hire - by Diraj Ravikumar\n")
